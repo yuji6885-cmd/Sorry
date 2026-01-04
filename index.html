@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Aditi ❤️</title>
+
+<style>
+/* ===== Global ===== */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffd1e8, #ffeef6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* ===== Floating Hearts ===== */
+.heart {
+    position: absolute;
+    bottom: -30px;
+    color: #ff7aa2;
+    animation: floatUp 8s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0) scale(1); opacity: 0.8; }
+    to { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
+
+/* ===== Book ===== */
+.book {
+    width: 600px;
+    height: 400px;
+    perspective: 2000px;
+    position: relative;
+    z-index: 2;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    background: white;
+    position: absolute;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transform-origin: left;
+    transition: transform 1s ease;
+    padding: 40px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.page h1 {
+    color: #ff5c8a;
+    text-align: center;
+}
+
+.page p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #444;
+    text-align: center;
+}
+
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+/* ===== Cover ===== */
+.cover {
+    background: linear-gradient(135deg, #ff5c8a, #ff8fb3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.cover span {
+    font-size: 18px;
+    margin-top: 12px;
+    font-weight: normal;
+}
+
+/* ===== Secret Box ===== */
+#secretBox {
+    position: absolute;
+    text-align: center;
+    display: none;
+    z-index: 1;
+}
+
+#secretBox input {
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #ff5c8a;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+#secretBox button {
+    margin-top: 12px;
+    padding: 10px 22px;
+    border-radius: 20px;
+    border: none;
+    background: #ff5c8a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#secretMessage {
+    display: none;
+    max-width: 520px;
+    margin-top: 20px;
+}
+
+#secretMessage h2 {
+    color: #ff5c8a;
+}
+
+#secretMessage p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 Background Music -->
+<audio autoplay loop controls style="position:fixed; bottom:10px; left:10px;">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c9c0d1f1a.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 💕 Floating Hearts -->
+<script>
+for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.fontSize = (14 + Math.random() * 22) + "px";
+    document.body.appendChild(heart);
+}
+</script>
+
+<div class="book">
+
+    <!-- Cover -->
+    <div class="page cover">
+        Our Little Love Book 💕
+        <span>For My Wife ❤️<br>✨ My Beautiful Aditi ✨</span>
+    </div>
+
+    <!-- Love Pages -->
+    <div class="page"><h1>Hey Aditi ❤️</h1><p>You’re my favorite thought, always.</p></div>
+    <div class="page"><h1>My Safe Place 🫶</h1><p>You make everything feel calm and warm.</p></div>
+    <div class="page"><h1>Just Us 💕</h1><p>Even silence feels beautiful with you.</p></div>
+    <div class="page"><h1>My Favorite Notification 📱</h1><p>I always hope it’s you.</p></div>
+    <div class="page"><h1>Soft Truth 🌸</h1><p>You matter to me more than words.</p></div>
+
+    <!-- Apology Pages -->
+    <div class="page"><h1>I’m Sorry 💔</h1><p>I wanted to call you, but work suddenly needed me.</p></div>
+    <div class="page"><h1>Not Ignoring You 🥺</h1><p>I was just stuck, missing you.</p></div>
+    <div class="page"><h1>You Matter 🤍</h1><p>You’re important to me, always.</p></div>
+    <div class="page"><h1>Please Forgive Me 🌹</h1><p>I miss you, Aditi 💕</p></div>
+
+</div>
+
+<!-- 🔐 Secret Message -->
+<div id="secretBox">
+    <p>🔐 Only for Aditi</p>
+    <input type="password" id="password" placeholder="Enter the password">
+    <br>
+    <button onclick="checkPassword()">Unlock 💖</button>
+
+    <div id="secretMessage">
+        <h2>One Last Thing… 💖</h2>
+        <p id="typeText"></p>
+    </div>
+</div>
+
+<script>
+/* ===== Page Flip Logic ===== */
+const pages = document.querySelectorAll('.page');
+let current = 0;
+
+pages.forEach((page, index) => {
+    page.style.zIndex = pages.length - index;
+    page.addEventListener('click', () => {
+        if (index === current) {
+            page.classList.add('flipped');
+            current++;
+            if (current === pages.length) {
+                document.getElementById("secretBox").style.display = "block";
+            }
+        }
+    });
+});
+
+/* ===== Typewriter Secret ===== */
+const secretText = `Aditi,
+if you ever wonder where you stand in my life —
+you’re not an option,
+not a habit,
+not a moment.
+
+You’re my choice.
+Every single day.
+
+I’m sorry for that missed call…
+and I love you. ❤️`;
+
+let i = 0;
+
+function checkPassword() {
+    const pass = document.getElementById("password").value;
+    if (pass === "My wife") {
+        document.getElementById("secretMessage").style.display = "block";
+        typeWriter();
+    } else {
+        alert("Only my wife knows this 💕");
+    }
+}
+
+function typeWriter() {
+    if (i < secretText.length) {
+        document.getElementById("typeText").innerHTML += secretText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 45);
+    }
+}
+</script>
+
+</body>
+</html>
